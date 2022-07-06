@@ -1,41 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N=25e2+10;
-vector<int> a(N);
+const int N= 25e2+10;
 int dp[N];
 
-int lis(int i)
+int lis(int i,vector<int> &a)
 {
-    if(dp[i] != -1) return dp[i];
-    int ans=1;
+    if(dp[i]!= -1) return dp[i];
+    int maxx=1;
     for(int j=0;j<i;j++)
-    {
-        if(a[i]>a[j])
-        ans=max(ans,lis(j)+1);
+    {   
+        if(a[i]>a[j]){
+            maxx=max(maxx,lis(j,a)+1);
+        }
     }
-    return dp[i]=ans;
+    return dp[i] = maxx;
 }
-
 int main()
 {
-// memset(dp,-1,sieof(dp));
-memset(dp,-1,sizeof(dp));
-int n;
-cin>>n;
+    memset(dp,-1,sizeof(dp));
+    int n;
+    cin>>n;
+    vector<int> a;
+    for (int i = 0; i < n; i++)
+    {
+        cin>>a[i];
+    }
 
-for (int i = 0; i < n; i++)
-{
-    cin>>a[i];
-}
-int ans=0;
+    int ans=0;
 
-for(int i=0;i<n;i++)
-{
-    ans=max(ans,lis(i));
-}
-
-cout<<ans;
-
+    for(int i=0;i<a.size();i++){
+        ans=max(ans,lis(i,a));
+    }
+    cout<<ans;
+    
 
 return 0;
 }
